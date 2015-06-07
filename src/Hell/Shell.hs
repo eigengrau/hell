@@ -73,7 +73,8 @@ loop config state =
   fix (\again ->
          do (mline,history) <- getLineAndHistory config state
             case mline of
-              Nothing -> again
+              Nothing -> return ()
+              Just "" -> again
               Just line ->
                 do historyRef <- asks stateHistory
                    io (writeIORef historyRef history)
